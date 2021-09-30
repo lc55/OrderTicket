@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lchao.mapper.LineMapper">
+    <select id="getCurValue" resultType="java.lang.Integer">
+        SELECT
+            (a.site_value - b.site_value) AS curValue
+        FROM
+            (
+                SELECT
+                    site_value,
+                    train_id
+                FROM
+                    t_line
+                WHERE
+                    train_id = #{trainId}
+                  AND site_id = #{endId}
+            ) a
+                LEFT JOIN (
+                SELECT
+                    site_value,
+                    train_id
+                FROM
+                    t_line
+                WHERE
+                    train_id = #{trainId}
+                  AND site_id = #{startId}
+            ) b ON 1 = 1
+    </select>
+</mapper>

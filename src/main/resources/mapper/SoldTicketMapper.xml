@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lchao.mapper.SoldTicketMapper">
+    <select id="getSoldTicket" resultType="java.util.Map">
+        select
+        c.level_car,
+        count(c.level_car) as seatCount
+        from t_sold_ticket st
+        left join t_carriage c on c.id = st.carriage_id
+        where st.train_id=#{trainId} and st.ticket_value &amp; #{curValue} != 0 and st.end_date=#{startDate}
+        group by c.level_car
+    </select>
+</mapper>

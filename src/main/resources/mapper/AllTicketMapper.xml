@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lchao.mapper.AllTicketMapper">
+    <select id="getAllTicket" resultType="java.util.Map">
+        select
+        c.level_car,
+        count(c.level_car) as seatCount
+        from t_all_ticket at
+        left join t_carriage c on at.carriage_id=c.id
+        where at.train_id = #{trainId} and at.state=1
+        group by c.level_car
+    </select>
+    <select id="getMoreTicket" resultType="java.util.Map">
+        select
+        at.id,
+        tc.carriage_order,
+        s.seat_number,
+        at.seat_id,
+        c.id as carriageId
+        from t_all_ticket at
+        left join t_carriage c on at.carriage_id=c.id
+        left join t_seat s on at.seat_id=s.id
+        left join t_train_carriage tc on tc.carriage_id=at.carriage_id
+        where at.train_id=#{id} and c.level_car=#{levelCar} and at.id not in (select ticket_id from t_sold_ticket where ticket_value&amp;#{curValue} and end_date=#{startDate})
+        limit 1
+    </select>
+</mapper>

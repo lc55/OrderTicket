@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lchao.mapper.OrderMapper">
+    <select id="getList" resultType="java.util.Map">
+        select o.id,
+        o.order_time,
+        t.train_number as trainNumber,
+        o.start_time,
+        s1.site_name as startName,
+        s2.site_name as endName,
+        o.end_time,
+        o.level_car,
+        o.price,
+        o.order_status,
+        p.passenger_name as passengerName,
+        p.passenger_card as passengerCard,
+        se.seat_number as seatNumber,
+        tc.carriage_order as carriageOrder
+        from t_order o
+        left join t_train t on o.train_id = t.id
+        left join t_site s1 on o.start_id = s1.id
+        left join t_site s2 on o.end_id = s2.id
+        left join t_passenger p on o.user_id = p.id
+        left join t_seat se on o.seat_id = se.id
+        left join t_train_carriage tc on o.carriage_id = tc.carriage_id and o.train_id=tc.train_id
+        <where>
+            <if test="trainNumber != null and trainNumber != ''">
+                and t.train_number=#{trainNumber}
+            </if>
+            <if test="passengerName != null and passengerName != ''">
+                and p.passenger_name=#{passengerName}
+            </if>
+            <if test="idCard != null and idCard != ''">
+                and p.passenger_card=#{idCard}
+            </if>
+            <if test="orderStatus != null">
+                and o.order_status=#{orderStatus}
+            </if>
+            <if test="seatType != null">
+                and o.level_car=#{seatType}
+            </if>
+        </where>
+        order by o.order_time desc
+    </select>
+    <select id="getMyOrderList" resultType="java.util.Map">
+        select
+        o.id,
+        s1.site_name as startName,
+        s2.site_name as endName,
+        o.start_date,
+        o.start_time,
+        t.train_number,
+        o.level_car,
+        o.carriage_order,
+        se.seat_number,
+        p.passenger_name,
+        p.passenger_card,
+        o.order_status,
+        o.end_date,
+        o.end_time
+        from t_order o
+        left join t_site s1 on s1.id=o.start_id
+        left join t_site s2 on s2.id=o.end_id
+        left join t_train t on t.id=o.train_id
+        left join t_passenger p on p.id=o.passenger_id
+        left join t_seat se on se.id=o.seat_id
+        <where>
+            o.user_id=#{userId}
+            <if test="startDate!=null and endDate!=null">
+                and o.start_date &gt;= #{startDate} and o.start_date &lt;= #{endDate}
+            </if>
+            <if test="type != null">
+                and o.level_car=#{level_car}
+            </if>
+            <if test="orderState != null">
+                and o.order_status=#{orderState}
+            </if>
+        </where>
+        order by o.order_time desc
+    </select>
+</mapper>
