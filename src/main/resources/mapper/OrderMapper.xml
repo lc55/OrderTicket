@@ -6,6 +6,8 @@
         o.order_time,
         t.train_number as trainNumber,
         o.start_time,
+        o.start_date,
+        o.end_date,
         s1.site_name as startName,
         s2.site_name as endName,
         o.end_time,
@@ -15,14 +17,13 @@
         p.passenger_name as passengerName,
         p.passenger_card as passengerCard,
         se.seat_number as seatNumber,
-        tc.carriage_order as carriageOrder
+        o.carriage_order
         from t_order o
         left join t_train t on o.train_id = t.id
         left join t_site s1 on o.start_id = s1.id
         left join t_site s2 on o.end_id = s2.id
         left join t_passenger p on o.user_id = p.id
         left join t_seat se on o.seat_id = se.id
-        left join t_train_carriage tc on o.carriage_id = tc.carriage_id and o.train_id=tc.train_id
         <where>
             <if test="trainNumber != null and trainNumber != ''">
                 and t.train_number=#{trainNumber}
