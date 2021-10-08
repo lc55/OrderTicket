@@ -7,7 +7,6 @@ public class Token {
     private String phone;
     private Integer tokenType;
     private String password;
-    private String token;
 
     public Integer getUserId() {
         return userId;
@@ -47,13 +46,5 @@ public class Token {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

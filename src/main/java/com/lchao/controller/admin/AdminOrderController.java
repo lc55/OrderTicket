@@ -1,5 +1,6 @@
 package com.lchao.controller.admin;
 
+import com.lchao.ann.Login;
 import com.lchao.common.Result;
 import com.lchao.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class AdminOrderController {
     @Autowired
     private IOrderService iOrderService;
 
+    @Login(userType = 2)
     @GetMapping("/list")
     public Result getList(Integer pageNum, Integer pageSize,
                           @RequestParam(required = false) String trainNumber,

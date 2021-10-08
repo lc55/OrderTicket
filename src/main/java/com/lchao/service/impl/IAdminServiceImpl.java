@@ -65,7 +65,7 @@ public class IAdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implement
 
     @Override
     public Result logout(Integer adminId) {
-        iTokenService.deleteTokenByUserId(adminId);
+        iTokenService.deleteTokenByUserId(adminId,TokenType.admin);
         return Result.OK();
     }
 

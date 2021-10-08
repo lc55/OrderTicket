@@ -92,7 +92,7 @@ public class IUserServiceImpl extends ServiceImpl<UserMapper, User> implements I
 
     @Override
     public Result logout(Integer id) {
-        iTokenService.deleteTokenByUserId(id);
+        iTokenService.deleteTokenByUserId(id,TokenType.user);
         return Result.OK();
     }
 }

@@ -2,6 +2,7 @@ package com.lchao.controller.admin;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.lchao.ann.Login;
 import com.lchao.common.Result;
 import com.lchao.enums.AddOrUpdate;
 import com.lchao.service.IAdminService;
@@ -24,28 +25,33 @@ public class AdminController {
         return iAdminService.login(jsonObject);
     }
 
+    @Login(userType = 2)
     @GetMapping("/logout")
     public Result logout(HttpServletRequest request){
         Integer userId = UserUtils.getUserId(request);
         return iAdminService.logout(userId);
     }
 
+    @Login(userType = 2)
     @GetMapping("/list")
     public Result adminList(Integer pageNum,Integer pageSize){
         return iAdminService.adminList(pageNum,pageSize);
     }
 
+    @Login(userType = 2)
     @PostMapping("/add")
     public Result addAdmin(@RequestBody JSONObject jsonObject){
         // {phone:131111,name:zs,password:123,state:1,id:编辑时传}
         return iAdminService.addOrUpdateAdmin(jsonObject);
     }
 
+    @Login(userType = 2)
     @GetMapping("/info")
     public Result adminInfo(Integer id){
         return iAdminService.adminInfo(id);
     }
 
+    @Login(userType = 2)
     @PostMapping("/edit")
     public Result updateAdmin(@RequestBody JSONObject jsonObject){
         return iAdminService.addOrUpdateAdmin(jsonObject);

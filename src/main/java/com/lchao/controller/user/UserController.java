@@ -1,6 +1,7 @@
 package com.lchao.controller.user;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lchao.ann.Login;
 import com.lchao.common.Result;
 import com.lchao.service.IPassengerService;
 import com.lchao.service.IUserService;
@@ -28,16 +29,19 @@ public class UserController {
         return iUserService.login(jsonObject);
     }
 
+    @Login(userType = 1)
     @GetMapping("/logout")
     public Result logout(Integer id){
         return iUserService.logout(id);
     }
 
+    @Login(userType = 1)
     @GetMapping("/getPassengerList")
     public Result getPassengerList(Integer id){
         return iPassengerService.getPassengerListByUserId(id);
     }
 
+    @Login(userType = 1)
     @PostMapping("/addPassenger")
     public Result addPassenger(@RequestBody JSONObject jsonObject){
         // json {phone:123,name:张三,idCard:510888888,id:1}
@@ -50,6 +54,7 @@ public class UserController {
         return iPassengerService.editPassenger(jsonObject);
     }
 
+    @Login(userType = 1)
     @GetMapping("/deletePassenger")
     public Result deletePassenger(Integer id){
         return iPassengerService.deletePassenger(id);

@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebRequestInterceptor implements WebMvcConfigurer {
 
     @Autowired
-    private RequestInterceptor requestInterceptor;
+    private LoginInterceptor loginInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestInterceptor)
+        registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**");
     }
 }
