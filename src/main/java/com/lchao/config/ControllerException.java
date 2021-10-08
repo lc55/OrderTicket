@@ -23,5 +23,4 @@ public class ControllerException {
         }
         return result;
     }
-
 }

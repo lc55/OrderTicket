@@ -13,10 +13,6 @@ public class WebRequestInterceptor implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        List<String> patterns = new ArrayList<>();
-//        patterns.add("/user/login");
-//        patterns.add("/user/register");
-//        patterns.add("/admin/manage/login");
         registry.addInterceptor(requestInterceptor)
                 .addPathPatterns("/**");
     }

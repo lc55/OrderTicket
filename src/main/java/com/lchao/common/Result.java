@@ -78,7 +78,7 @@ public class Result implements Serializable {
         Error(0),
         OK(1);
 
-        private int value;
+        private final int value;
 
         ResultCode(int value) {
             this.value = value;
