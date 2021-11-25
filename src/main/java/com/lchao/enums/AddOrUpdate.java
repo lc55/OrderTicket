@@ -5,6 +5,7 @@ public enum AddOrUpdate {
     UPDATE(2);
 
     int value;
+
     AddOrUpdate(int value) {
         this.value = value;
     }

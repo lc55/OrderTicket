@@ -80,11 +80,11 @@ public class IPassengerServiceImpl extends ServiceImpl<PassengerMapper, Passenge
     @Override
     public Result deletePassenger(Integer id) {
 
-        if (id == null){
+        if (id == null) {
             return Result.Error("参数存在空值");
         }
         boolean b = removeById(id);
-        if (!b){
+        if (!b) {
             return Result.Error("删除失败！");
         }
         return Result.OK();

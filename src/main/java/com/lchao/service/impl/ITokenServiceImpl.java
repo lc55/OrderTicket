@@ -37,11 +37,11 @@ public class ITokenServiceImpl implements ITokenService {
         }
         ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
         String tokenValue = opsForValue.get(TK + token.getUserId());
-        if (StringUtils.isBlank(tokenValue)){
+        if (StringUtils.isBlank(tokenValue)) {
             String newTokenValue = UUIDUtil.getUUID();
-            opsForValue.set(TK+token.getUserId(), newTokenValue,30,TimeUnit.MINUTES);
-        }else{
-            opsForValue.set(TK + token.getUserId(), tokenValue,30,TimeUnit.MINUTES);
+            opsForValue.set(TK + token.getUserId(), newTokenValue, 30, TimeUnit.MINUTES);
+        } else {
+            opsForValue.set(TK + token.getUserId(), tokenValue, 30, TimeUnit.MINUTES);
         }
         return opsForValue.get(TK + token.getUserId().toString());
     }
@@ -55,6 +55,6 @@ public class ITokenServiceImpl implements ITokenService {
         if (tokenType.getType() == TokenType.user.getType()) {
             TK = "user" + TK;
         }
-        redisTemplate.hasKey(TK+userId);
+        redisTemplate.hasKey(TK + userId);
     }
 }

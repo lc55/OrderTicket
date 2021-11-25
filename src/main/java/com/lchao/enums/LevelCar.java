@@ -13,7 +13,7 @@ public enum LevelCar {
         this.level = level;
     }
 
-    public int getLevel(){
+    public int getLevel() {
         return level;
     }
 }

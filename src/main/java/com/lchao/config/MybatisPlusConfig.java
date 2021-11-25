@@ -18,7 +18,7 @@ public class MybatisPlusConfig {
     }
 
     @Bean
-    public ConfigurationCustomizer mybatisConfigurationCustomizer(){
+    public ConfigurationCustomizer mybatisConfigurationCustomizer() {
         return configuration -> configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
     }
 }

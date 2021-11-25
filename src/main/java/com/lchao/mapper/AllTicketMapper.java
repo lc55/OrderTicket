@@ -13,5 +13,5 @@ import java.util.Map;
 public interface AllTicketMapper extends BaseMapper<AllTicket> {
     List<Map<String, Object>> getAllTicket(Integer trainId);
 
-    Map<String, Object> getMoreTicket(Integer id, Integer curValue, Integer levelCar,String startDate);
+    Map<String, Object> getMoreTicket(Integer id, Integer curValue, Integer levelCar, String startDate);
 }

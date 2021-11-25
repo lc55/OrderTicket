@@ -100,7 +100,7 @@ public class DateUtils {
     /*
         获取当前时间+8分钟的时间
      */
-    public static String getNowAdd8(){
+    public static String getNowAdd8() {
         LocalDateTime time = LocalDateTime.now().plusMinutes(8);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         return time.format(formatter);
@@ -109,16 +109,16 @@ public class DateUtils {
     /*
         获取当前时间戳
      */
-    public static Long getTimeStamp(){
+    public static Long getTimeStamp() {
         return LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
     }
 
-    public static Boolean isBefore(String time){
+    public static Boolean isBefore(String time) {
         LocalDate dateTime = LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         return dateTime.isBefore(LocalDate.now());
     }
 
-    public static String getEndDateTime(String startDate,String startTime,Integer consume){
+    public static String getEndDateTime(String startDate, String startTime, Integer consume) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime parse = LocalDateTime.parse(startDate + " " + startTime, formatter);
         LocalDateTime time = parse.plusMinutes(consume.longValue());

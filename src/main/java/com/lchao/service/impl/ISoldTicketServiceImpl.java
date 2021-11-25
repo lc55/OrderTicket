@@ -19,6 +19,6 @@ public class ISoldTicketServiceImpl extends ServiceImpl<SoldTicketMapper, SoldTi
     @Override
     public List<Map<String, Object>> getSoldTicket(Integer trainId, Integer curValue, String startDate) {
 
-        return soldTicketMapper.getSoldTicket(trainId,curValue,startDate);
+        return soldTicketMapper.getSoldTicket(trainId, curValue, startDate);
     }
 }

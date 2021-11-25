@@ -20,40 +20,40 @@ public class AdminController {
     private IAdminService iAdminService;
 
     @PostMapping("/login")
-    public Result login(@RequestBody JSONObject jsonObject){
+    public Result login(@RequestBody JSONObject jsonObject) {
         // json {phone:123,password:adf}
         return iAdminService.login(jsonObject);
     }
 
     @Login(userType = 2)
     @GetMapping("/logout")
-    public Result logout(HttpServletRequest request){
+    public Result logout(HttpServletRequest request) {
         Integer userId = UserUtils.getUserId(request);
         return iAdminService.logout(userId);
     }
 
     @Login(userType = 2)
     @GetMapping("/list")
-    public Result adminList(Integer pageNum,Integer pageSize){
-        return iAdminService.adminList(pageNum,pageSize);
+    public Result adminList(Integer pageNum, Integer pageSize) {
+        return iAdminService.adminList(pageNum, pageSize);
     }
 
     @Login(userType = 2)
     @PostMapping("/add")
-    public Result addAdmin(@RequestBody JSONObject jsonObject){
+    public Result addAdmin(@RequestBody JSONObject jsonObject) {
         // {phone:131111,name:zs,password:123,state:1,id:编辑时传}
         return iAdminService.addOrUpdateAdmin(jsonObject);
     }
 
     @Login(userType = 2)
     @GetMapping("/info")
-    public Result adminInfo(Integer id){
+    public Result adminInfo(Integer id) {
         return iAdminService.adminInfo(id);
     }
 
     @Login(userType = 2)
     @PostMapping("/edit")
-    public Result updateAdmin(@RequestBody JSONObject jsonObject){
+    public Result updateAdmin(@RequestBody JSONObject jsonObject) {
         return iAdminService.addOrUpdateAdmin(jsonObject);
     }
 }

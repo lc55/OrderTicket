@@ -37,7 +37,7 @@ public class AdminTrainController {
 
     @Login(userType = 2)
     @PostMapping("/update")
-    public Result updateTrain(@RequestBody JSONObject jsonObject){
+    public Result updateTrain(@RequestBody JSONObject jsonObject) {
         // json {trainNumber:G2121,isReturn:1,type:1,startTime:2910290,trainCount:1,siteList:{{siteId:1,useTime:21},{}},carriageList:{{carriageId:1},{}}}
         jsonObject.put("addOrUpdate", AddOrUpdate.UPDATE.getValue());
         return iTrainService.addOrUpdateTrain(jsonObject);
@@ -62,7 +62,7 @@ public class AdminTrainController {
 
     @Login(userType = 2)
     @GetMapping("/info")
-    public Result getTrainInfo(Integer id){
+    public Result getTrainInfo(Integer id) {
         return iTrainService.getTrainInfo(id);
     }
 }

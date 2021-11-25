@@ -3,20 +3,20 @@
 <mapper namespace="com.lchao.mapper.TrainMapper">
     <select id="getTrainList" resultType="java.util.Map">
         select t.id,
-               t.train_number,
-               t.is_return,
-               t.type,
-               t.start_time,
-               t.end_time,
-               t.shift,
-               s1.site_name as startName,
-               s2.site_name as endName,
-               t.time_consume,
-               t.carriage,
-               t.train_status
+        t.train_number,
+        t.is_return,
+        t.type,
+        t.start_time,
+        t.end_time,
+        t.shift,
+        s1.site_name as startName,
+        s2.site_name as endName,
+        t.time_consume,
+        t.carriage,
+        t.train_status
         from t_train t
-                 left join t_site s1 on t.start_id = s1.id
-                 left join t_site s2 on t.end_id = s2.id
+        left join t_site s1 on t.start_id = s1.id
+        left join t_site s2 on t.end_id = s2.id
     </select>
     <select id="getBaseTrainInfoList" resultType="java.util.Map">
         select t.id,

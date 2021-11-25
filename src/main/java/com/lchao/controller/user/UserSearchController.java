@@ -26,6 +26,6 @@ public class UserSearchController {
 
     @GetMapping("/moreTicket")
     public Result moreTicket(Integer startId, Integer endId, String startTime, @RequestParam(required = false) String types) {
-        return iAllTicketService.searchTicket(startId, endId, startTime,types);
+        return iAllTicketService.searchTicket(startId, endId, startTime, types);
     }
 }

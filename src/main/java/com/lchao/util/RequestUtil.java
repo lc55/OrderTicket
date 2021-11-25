@@ -10,7 +10,7 @@ import java.util.Map;
 public class RequestUtil {
 
 
-    public static void  addHeader(HttpServletRequest request,Map<String, String> header){
+    public static void addHeader(HttpServletRequest request, Map<String, String> header) {
         Class<? extends HttpServletRequest> requestClass = request.getClass();
         try {
             Field request1 = requestClass.getDeclaredField("request");
@@ -21,7 +21,7 @@ public class RequestUtil {
             Object o1 = coyoteRequest.get(o);
             Field headers = o1.getClass().getDeclaredField("headers");
             headers.setAccessible(true);
-            MimeHeaders o2 = (MimeHeaders)headers.get(o1);
+            MimeHeaders o2 = (MimeHeaders) headers.get(o1);
             for (Map.Entry<String, String> entry : header.entrySet()) {
                 o2.removeHeader(entry.getKey());
                 o2.addValue(entry.getKey()).setString(entry.getValue());

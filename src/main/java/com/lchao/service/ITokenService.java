@@ -9,6 +9,6 @@ public interface ITokenService {
 
     String addToken(Token token);
 
-    void deleteTokenByUserId(Integer userId,TokenType tokenType);
+    void deleteTokenByUserId(Integer userId, TokenType tokenType);
 
 }

@@ -16,7 +16,7 @@ public class ILineServiceImpl extends ServiceImpl<LineMapper, Line> implements I
     private LineMapper lineMapper;
 
     @Override
-    public Integer getCurValue(Integer trainId, Integer startId,Integer endId) {
-        return lineMapper.getCurValue(trainId,startId,endId);
+    public Integer getCurValue(Integer trainId, Integer startId, Integer endId) {
+        return lineMapper.getCurValue(trainId, startId, endId);
     }
 }

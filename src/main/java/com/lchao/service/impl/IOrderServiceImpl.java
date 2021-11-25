@@ -112,7 +112,7 @@ public class IOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implement
             // 当前车票值
             Integer curValue = iLineService.getCurValue(id, startId, endId);
             // 查询前1张车票
-            Map<String, Object> ticketMap = iAllTicketService.getMoreTicket(id, curValue, levelCar,startDate);
+            Map<String, Object> ticketMap = iAllTicketService.getMoreTicket(id, curValue, levelCar, startDate);
             ticketMap.put("passengerId", passengerId);
             ticketMap.put("name", passenger.getPassengerName());
             ticketMap.put("idCard", passenger.getPassengerCard());
@@ -144,13 +144,13 @@ public class IOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implement
             // 生成已购买的票
             SoldTicket soldTicket = new SoldTicket();
             soldTicket.setTrainId(id);
-            soldTicket.setCarriageId(MapUtils.getInteger(ticketMap,"carriageId"));
+            soldTicket.setCarriageId(MapUtils.getInteger(ticketMap, "carriageId"));
             soldTicket.setTicketId(MapUtils.getInteger(ticketMap, "id"));
             soldTicket.setTicketValue(curValue);
             soldTicket.setEndDate(startDate);
             soldTicket.setOrderId(order.getId());
             boolean saveSoldTicket = iSoldTicketService.save(soldTicket);
-            if (!saveSoldTicket){
+            if (!saveSoldTicket) {
                 return Result.RollBackError("生成车票失败！");
             }
 
@@ -180,7 +180,7 @@ public class IOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implement
 
             // 删除已经生成的车票
             boolean remove = iSoldTicketService.remove(new QueryWrapper<SoldTicket>().eq("order_id", orderId));
-            if (!remove){
+            if (!remove) {
                 return Result.RollBackError("退车票失败！");
             }
 

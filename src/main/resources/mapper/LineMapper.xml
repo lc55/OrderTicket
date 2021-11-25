@@ -3,27 +3,27 @@
 <mapper namespace="com.lchao.mapper.LineMapper">
     <select id="getCurValue" resultType="java.lang.Integer">
         SELECT
-            (a.site_value - b.site_value) AS curValue
+        (a.site_value - b.site_value) AS curValue
         FROM
-            (
-                SELECT
-                    site_value,
-                    train_id
-                FROM
-                    t_line
-                WHERE
-                    train_id = #{trainId}
-                  AND site_id = #{endId}
-            ) a
-                LEFT JOIN (
-                SELECT
-                    site_value,
-                    train_id
-                FROM
-                    t_line
-                WHERE
-                    train_id = #{trainId}
-                  AND site_id = #{startId}
-            ) b ON 1 = 1
+        (
+        SELECT
+        site_value,
+        train_id
+        FROM
+        t_line
+        WHERE
+        train_id = #{trainId}
+        AND site_id = #{endId}
+        ) a
+        LEFT JOIN (
+        SELECT
+        site_value,
+        train_id
+        FROM
+        t_line
+        WHERE
+        train_id = #{trainId}
+        AND site_id = #{startId}
+        ) b ON 1 = 1
     </select>
 </mapper>

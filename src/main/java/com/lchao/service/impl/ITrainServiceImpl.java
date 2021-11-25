@@ -77,28 +77,28 @@ public class ITrainServiceImpl extends ServiceImpl<TrainMapper, Train> implement
             if (t != null) {
                 return Result.Error("车次编号为：" + trainNumber + "的车次已经存在了！");
             }
-        } else if (addOrUpdate == AddOrUpdate.UPDATE.getValue()){
+        } else if (addOrUpdate == AddOrUpdate.UPDATE.getValue()) {
             if (t == null) {
                 return Result.Error("车次编号为：" + trainNumber + "的车次不存在！");
             } else {
                 train.setId(t.getId());
                 // 删除以前的line
                 boolean removeLine = iLineService.remove(new QueryWrapper<Line>().eq("train_id", t.getId()));
-                if (!removeLine){
+                if (!removeLine) {
                     return Result.RollBackError("删除线路失败！");
                 }
                 // 删除trainCarriage
                 boolean removeTrainCarriage = iTrainCarriageService.remove(new QueryWrapper<TrainCarriage>().eq("train_id", t.getId()));
-                if (!removeTrainCarriage){
+                if (!removeTrainCarriage) {
                     return Result.RollBackError("删除车厢车次表失败！");
                 }
                 // 删除以前的票
                 boolean removeAllTicket = iAllTicketService.remove(new QueryWrapper<AllTicket>().eq("train_id", t.getId()));
-                if (!removeAllTicket){
+                if (!removeAllTicket) {
                     return Result.RollBackError("删除车票失败！");
                 }
             }
-        }else{
+        } else {
             return Result.RollBackError("错误的标志！");
         }
 
@@ -129,10 +129,10 @@ public class ITrainServiceImpl extends ServiceImpl<TrainMapper, Train> implement
             }
         } else if (addOrUpdate == AddOrUpdate.UPDATE.getValue()) {
             boolean b = updateById(train);
-            if (!b){
+            if (!b) {
                 return Result.RollBackError("更新车次失败！");
             }
-        }else {
+        } else {
             return Result.RollBackError("错误的标志！");
         }
 
@@ -159,7 +159,7 @@ public class ITrainServiceImpl extends ServiceImpl<TrainMapper, Train> implement
             TrainCarriage trainCarriage = new TrainCarriage();
             trainCarriage.setTrainId(train.getId());
             trainCarriage.setCarriageId(carriageList.getInteger(i));
-            trainCarriage.setCarriageOrder(i+1);
+            trainCarriage.setCarriageOrder(i + 1);
             trainCarriageList.add(trainCarriage);
         }
         boolean saveTrainCarriage = iTrainCarriageService.saveBatch(trainCarriageList);

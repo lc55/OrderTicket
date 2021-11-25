@@ -7,6 +7,7 @@ public class SeatUtil {
 
     /**
      * 生成座位
+     *
      * @param leftSeat
      * @param rightSeat
      * @param rowSeat
@@ -18,7 +19,7 @@ public class SeatUtil {
         int row = leftSeat + rightSeat;
         for (int i = 1; i <= rowSeat; i++) {
             for (int j = 1; j <= row; j++) {
-                seatList.add(i+letter[j-1]);
+                seatList.add(i + letter[j - 1]);
             }
         }
         return seatList;
@@ -26,16 +27,17 @@ public class SeatUtil {
 
     /**
      * 生成带有车厢座位的座位号
+     *
      * @param carriageNumber
      * @param seatNumber
      * @return
      */
-    public static String generateSeatNumber(int carriageNumber,String seatNumber){
+    public static String generateSeatNumber(int carriageNumber, String seatNumber) {
 
         StringBuilder builder = new StringBuilder();
-        if (carriageNumber<10){
+        if (carriageNumber < 10) {
             builder.append(0).append(carriageNumber).append("车");
-        }else{
+        } else {
             builder.append(carriageNumber).append("车");
         }
         builder.append(" ");
@@ -44,6 +46,6 @@ public class SeatUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(generateSeats(1, 1,5));
+        System.out.println(generateSeats(1, 1, 5));
     }
 }

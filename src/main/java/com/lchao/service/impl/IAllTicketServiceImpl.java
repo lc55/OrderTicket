@@ -127,7 +127,7 @@ public class IAllTicketServiceImpl extends ServiceImpl<AllTicketMapper, AllTicke
             // 查询所有的车票数
             List<Map<String, Object>> allTicketList = allTicketMapper.getAllTicket(trainId);
             // 查询已经买过的车票
-            List<Map<String, Object>> soldTicketList = iSoldTicketService.getSoldTicket(trainId, curValue,startDate);
+            List<Map<String, Object>> soldTicketList = iSoldTicketService.getSoldTicket(trainId, curValue, startDate);
             // 统计能够购买的票
             for (Map<String, Object> ticket : allTicketList) {
                 Integer levelCar = MapUtils.getInteger(ticket, "levelCar");
@@ -135,9 +135,9 @@ public class IAllTicketServiceImpl extends ServiceImpl<AllTicketMapper, AllTicke
                 for (Map<String, Object> soldTicket : soldTicketList) {
                     Integer soldLevelCar = MapUtils.getInteger(soldTicket, "levelCar");
                     Integer soldSeatCount = MapUtils.getInteger(soldTicket, "seatCount");
-                    if (Objects.equals(soldLevelCar, levelCar)){
+                    if (Objects.equals(soldLevelCar, levelCar)) {
                         Integer canBuyCount = seatCount - soldSeatCount;
-                       ticket.put("seatCount", canBuyCount);
+                        ticket.put("seatCount", canBuyCount);
                     }
                 }
             }

@@ -11,6 +11,7 @@ import java.util.Map;
 public interface ITrainService extends IService<Train> {
     /**
      * 添加/更新车次
+     *
      * @param jsonObject {trainNumber:G2121,isReturn:1,type:1,startTime:2910290,trainCount:1,siteList:{{siteId:1,useTime:21},{}},carriageList:{{carriageId:1},{}}}
      * @return result
      */
@@ -18,7 +19,8 @@ public interface ITrainService extends IService<Train> {
 
     /**
      * 查询车次列表
-     * @param pageNum 当前页
+     *
+     * @param pageNum  当前页
      * @param pageSize 页面大小
      * @return result
      */
@@ -26,6 +28,7 @@ public interface ITrainService extends IService<Train> {
 
     /**
      * 获取车次详情
+     *
      * @param id id
      * @return result
      */
@@ -33,6 +36,7 @@ public interface ITrainService extends IService<Train> {
 
     /**
      * 获取车次的基础信息
+     *
      * @param trainIds 车次id集合
      * @return result
      */

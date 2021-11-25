@@ -11,5 +11,5 @@ import java.util.Map;
 @Mapper
 @Component
 public interface LineMapper extends BaseMapper<Line> {
-    Integer getCurValue(Integer trainId, Integer startId,Integer endId);
+    Integer getCurValue(Integer trainId, Integer startId, Integer endId);
 }

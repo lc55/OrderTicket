@@ -8,6 +8,7 @@ import com.lchao.entity.User;
 public interface IUserService extends IService<User> {
     /**
      * 登录
+     *
      * @param jsonObject {phone:123,password:adf}
      * @return result
      */
@@ -15,6 +16,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 注册
+     *
      * @param jsonObject {phone:123,password:adf}
      * @return result
      */

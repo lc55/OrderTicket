@@ -21,7 +21,8 @@
         left join t_carriage c on at.carriage_id=c.id
         left join t_seat s on at.seat_id=s.id
         left join t_train_carriage tc on tc.carriage_id=at.carriage_id
-        where at.train_id=#{id} and c.level_car=#{levelCar} and at.id not in (select ticket_id from t_sold_ticket where ticket_value&amp;#{curValue} and end_date=#{startDate})
+        where at.train_id=#{id} and c.level_car=#{levelCar} and at.id not in (select ticket_id from t_sold_ticket where
+        ticket_value&amp;#{curValue} and end_date=#{startDate})
         limit 1
     </select>
 </mapper>
