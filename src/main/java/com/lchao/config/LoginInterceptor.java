@@ -3,7 +3,12 @@ package com.lchao.config;
 import com.alibaba.fastjson.JSON;
 import com.lchao.ann.Login;
 import com.lchao.common.Result;
+import com.lchao.common.Token;
+import com.lchao.common.UserDetails;
+import com.lchao.service.ITokenService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,6 +22,11 @@ import java.lang.reflect.Method;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
+    @Value("${token.ut}")
+    private String UT;
+    @Autowired
+    private ITokenService iTokenService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
@@ -28,18 +38,18 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (login == null) {
             return true;
         }
-        String token = request.getHeader("Auth");
-        if (login.userType() == 1) {
-            if (StringUtils.isBlank(token)) {
-                return Write(response, "登录失效！");
-            }
-        } else if (login.userType() == 2) {
-            if (StringUtils.isBlank(token)) {
-                return Write(response, "登录失效！");
-            }
-        } else {
-            return Write(response, "错误的用户类型！");
+        String tokenKey = request.getHeader("Auth");
+        if (StringUtils.isBlank(tokenKey)){
+            return Write(response,"请登录后访问！");
         }
+        Token token = iTokenService.getTokenByType(tokenKey, login.userType());
+        if (token == null){
+            return Write(response,"请登录后访问！");
+        }
+        UserDetails userAttribute = new UserDetails();
+        userAttribute.setId(token.getId());
+        userAttribute.setUserType(token.getUserType());
+        request.setAttribute("userDetails", userAttribute);
         return true;
     }
 

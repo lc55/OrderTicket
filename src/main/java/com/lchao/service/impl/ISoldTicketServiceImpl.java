@@ -1,7 +1,7 @@
 package com.lchao.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lchao.entity.SoldTicket;
+import com.lchao.pojo.SoldTicket;
 import com.lchao.mapper.SoldTicketMapper;
 import com.lchao.service.ISoldTicketService;
 import org.springframework.beans.factory.annotation.Autowired;

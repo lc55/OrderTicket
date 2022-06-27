@@ -1,7 +1,7 @@
 package com.lchao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lchao.entity.SoldTicket;
+import com.lchao.pojo.SoldTicket;
 
 import java.util.List;
 import java.util.Map;

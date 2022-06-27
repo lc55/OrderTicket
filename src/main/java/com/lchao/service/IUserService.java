@@ -3,7 +3,8 @@ package com.lchao.service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lchao.common.Result;
-import com.lchao.entity.User;
+import com.lchao.common.UserDetails;
+import com.lchao.pojo.User;
 
 public interface IUserService extends IService<User> {
     /**
@@ -22,5 +23,5 @@ public interface IUserService extends IService<User> {
      */
     Result register(JSONObject jsonObject);
 
-    Result logout(Integer id);
+    Result logout(UserDetails userDetails);
 }

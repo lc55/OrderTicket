@@ -5,22 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lchao.common.Result;
 import com.lchao.common.Token;
-import com.lchao.entity.User;
-import com.lchao.enums.TokenType;
+import com.lchao.common.UserDetails;
+import com.lchao.enums.UserType;
 import com.lchao.mapper.UserMapper;
+import com.lchao.pojo.User;
 import com.lchao.service.ITokenService;
 import com.lchao.service.IUserService;
 import com.lchao.util.MD5Util;
-import com.lchao.util.UUIDUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class IUserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
@@ -51,15 +45,10 @@ public class IUserServiceImpl extends ServiceImpl<UserMapper, User> implements I
         }
         // 生成token
         Token token = new Token();
-        token.setUserId(user.getId());
+        token.setId(user.getId());
         token.setPhone(user.getPhone());
-        token.setTokenType(TokenType.user.getType());
-        token.setPassword(user.getPassword());
-        String tokenKey = iTokenService.addToken(token);
-        Map<String, Object> map = new HashMap<>();
-        map.put("token", tokenKey);
-        map.put("user", user);
-        return new Result(map);
+        token.setUserType(UserType.user.getType());
+        return iTokenService.addToken(token);
     }
 
     @Override
@@ -91,8 +80,9 @@ public class IUserServiceImpl extends ServiceImpl<UserMapper, User> implements I
     }
 
     @Override
-    public Result logout(Integer id) {
-        iTokenService.deleteTokenByUserId(id, TokenType.user);
-        return Result.OK();
+    public Result logout(UserDetails userDetails) {
+        Integer id = userDetails.getId();
+        iTokenService.deleteTokenByUserId(id, UserType.user);
+        return Result.OK("成功退出！");
     }
 }

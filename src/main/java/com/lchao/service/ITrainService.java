@@ -3,7 +3,7 @@ package com.lchao.service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lchao.common.Result;
-import com.lchao.entity.Train;
+import com.lchao.pojo.Train;
 
 import java.util.List;
 import java.util.Map;

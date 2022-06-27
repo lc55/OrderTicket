@@ -1,7 +1,6 @@
-package com.lchao.common;
+package com.lchao.dto;
 
-public class Token {
-
+public class TokenDTO {
     private Integer id;
     private String name;
     private String phone;

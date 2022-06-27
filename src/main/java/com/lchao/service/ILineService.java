@@ -1,9 +1,7 @@
 package com.lchao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lchao.entity.Line;
-
-import java.util.List;
+import com.lchao.pojo.Line;
 
 public interface ILineService extends IService<Line> {
 

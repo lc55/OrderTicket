@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lchao.common.Result;
-import com.lchao.entity.Passenger;
+import com.lchao.pojo.Passenger;
 import com.lchao.mapper.PassengerMapper;
 import com.lchao.service.IPassengerService;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +20,7 @@ public class IPassengerServiceImpl extends ServiceImpl<PassengerMapper, Passenge
             return Result.Error("参数为空！");
         }
         List<Passenger> passengerList = list(new QueryWrapper<Passenger>().eq("user_id", id));
-        return new Result(passengerList);
+        return Result.OK(passengerList);
     }
 
     @Override

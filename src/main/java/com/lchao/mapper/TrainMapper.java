@@ -2,7 +2,7 @@ package com.lchao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lchao.entity.Train;
+import com.lchao.pojo.Train;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

@@ -4,7 +4,7 @@ package com.lchao.service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lchao.common.Result;
-import com.lchao.entity.Carriage;
+import com.lchao.pojo.Carriage;
 
 public interface ICarriageService extends IService<Carriage> {
     /**

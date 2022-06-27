@@ -2,11 +2,10 @@ package com.lchao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lchao.entity.Order;
+import com.lchao.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Map;
 
 @Mapper

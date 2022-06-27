@@ -2,7 +2,7 @@ package com.lchao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lchao.common.Result;
-import com.lchao.entity.AllTicket;
+import com.lchao.pojo.AllTicket;
 
 import java.util.Map;
 

@@ -20,7 +20,7 @@ public class Result implements Serializable {
     public Result() {
     }
 
-    public Result(int code) {
+    public Result(int code){
         this.code = code;
     }
 
@@ -29,9 +29,9 @@ public class Result implements Serializable {
         this.msg = msg;
     }
 
-    public Result(Object data) {
-        this.code = 1;
-        this.msg = "";
+    public Result(int code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
         this.data = data;
     }
 
@@ -49,20 +49,19 @@ public class Result implements Serializable {
     }
 
     public static Result OK() {
-        return new Result(1);
+        return new Result(ResultCode.OK.getValue(), "");
     }
 
     public static Result OK(String msg) {
         return new Result(ResultCode.OK.value, msg);
     }
 
-
-    public static Result Error() {
-        return Error("系统错误");
+    public static Result OK(Object data) {
+        return new Result(ResultCode.OK.value, "", data);
     }
 
     public static Result Error(String msg) {
-        return new Result(0, msg);
+        return new Result(ResultCode.Error.value, msg);
     }
 
     public static Result RollBackError(String msg) {

@@ -1,12 +1,12 @@
 package com.lchao.enums;
 
-public enum TokenType {
+public enum UserType {
 
     admin(1),
     user(2);
     private final int type;
 
-    TokenType(int type) {
+    UserType(int type) {
         this.type = type;
     }
 

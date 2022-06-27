@@ -8,10 +8,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lchao.common.Result;
-import com.lchao.entity.AllTicket;
-import com.lchao.entity.Order;
-import com.lchao.entity.Passenger;
-import com.lchao.entity.SoldTicket;
+import com.lchao.pojo.Order;
+import com.lchao.pojo.Passenger;
+import com.lchao.pojo.SoldTicket;
 import com.lchao.enums.OrderState;
 import com.lchao.mapper.OrderMapper;
 import com.lchao.service.*;
@@ -155,7 +154,7 @@ public class IOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implement
             }
 
         }
-        return new Result(orderInfoList);
+        return Result.OK(orderInfoList);
     }
 
     @Transactional
@@ -186,7 +185,7 @@ public class IOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implement
 
         }
         // 返回订单编号
-        return new Result(orderNumberList);
+        return Result.OK(orderNumberList);
     }
 
     @Override
@@ -206,7 +205,7 @@ public class IOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implement
         }
         // 返回订单编号
 
-        return new Result(orderNumberList);
+        return Result.OK(orderNumberList);
     }
 
     @Override

@@ -1,12 +1,12 @@
-package com.lchao.entity;
+package com.lchao.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-@TableName("t_train_carriage")
-public class TrainCarriage {
+@TableName("t_all_ticket")
+public class AllTicket {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -17,8 +17,11 @@ public class TrainCarriage {
     @TableField("carriage_id")
     private Integer carriageId;
 
-    @TableField("carriage_order")
-    private Integer carriageOrder;
+    @TableField("seat_id")
+    private Integer seatId;
+
+    @TableField("state")
+    private Integer state;
 
     public Integer getId() {
         return id;
@@ -44,11 +47,19 @@ public class TrainCarriage {
         this.carriageId = carriageId;
     }
 
-    public Integer getCarriageOrder() {
-        return carriageOrder;
+    public Integer getSeatId() {
+        return seatId;
     }
 
-    public void setCarriageOrder(Integer carriageOrder) {
-        this.carriageOrder = carriageOrder;
+    public void setSeatId(Integer seatId) {
+        this.seatId = seatId;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

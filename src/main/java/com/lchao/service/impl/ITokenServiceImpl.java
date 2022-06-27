@@ -1,21 +1,21 @@
 package com.lchao.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.lchao.common.Result;
 import com.lchao.common.Token;
-import com.lchao.enums.TokenType;
+import com.lchao.enums.SysConfigKey;
+import com.lchao.enums.UserType;
+import com.lchao.service.ISysConfigService;
 import com.lchao.service.ITokenService;
-import com.lchao.util.KeyGenerator;
+import com.lchao.util.DateUtils;
 import com.lchao.util.UUIDUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -23,38 +23,73 @@ public class ITokenServiceImpl implements ITokenService {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+    @Autowired
+    private ISysConfigService iSysConfigService;
 
-    private final String TK = "TK:";
+    @Value("${token.ut}")
+    private String UT;
+    @Value("${token.tk}")
+    private String TK;
+    @Value("${token.adminTK}")
+    private String AdminTK;
 
     @Override
-    public String addToken(Token token) {
+    public Result addToken(Token token) {
+        if (token == null) {
+            return Result.Error("token参数为空！");
+        }
+        String UT = this.UT;
         String TK = this.TK;
-        if (token.getTokenType().equals(TokenType.admin.getType())) {
+        if (token.getUserType() == UserType.admin.getType()){
+            UT = "admin" + UT;
             TK = "admin" + TK;
         }
-        if (token.getTokenType().equals(TokenType.user.getType())) {
-            TK = "user" + TK;
-        }
         ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
-        String tokenValue = opsForValue.get(TK + token.getUserId());
-        if (StringUtils.isBlank(tokenValue)) {
-            String newTokenValue = UUIDUtil.getUUID();
-            opsForValue.set(TK + token.getUserId(), newTokenValue, 30, TimeUnit.MINUTES);
+        Long tokenExpireTime = iSysConfigService.getSysValue(SysConfigKey.Token_Expire_Time, Long.class);
+        // 旧的token
+        String oldTokenKey = opsForValue.get(UT + token.getId());
+        if (StringUtils.isNotBlank(oldTokenKey)) {
+            // 有token，修改过期时间
+            redisTemplate.expire(UT + token.getId(), tokenExpireTime, TimeUnit.MINUTES);
+            redisTemplate.expire(TK + oldTokenKey, tokenExpireTime, TimeUnit.MINUTES);
+            token.setToken(oldTokenKey);
+            token.setExpireTime(DateUtils.getAfterMinuteTimeStamp(tokenExpireTime));
         } else {
-            opsForValue.set(TK + token.getUserId(), tokenValue, 30, TimeUnit.MINUTES);
+            // 没有token，生成token
+            String newTokenValue = UUIDUtil.getUUID();
+            token.setToken(newTokenValue);
+            token.setExpireTime(DateUtils.getAfterMinuteTimeStamp(tokenExpireTime));
+            opsForValue.set(UT+token.getId(),newTokenValue,tokenExpireTime,TimeUnit.MINUTES);
+            opsForValue.set(TK+newTokenValue, JSONObject.toJSONString(token),tokenExpireTime,TimeUnit.MINUTES);
         }
-        return opsForValue.get(TK + token.getUserId().toString());
+        return Result.OK(token);
     }
 
     @Override
-    public void deleteTokenByUserId(Integer userId, TokenType tokenType) {
+    public void deleteTokenByUserId(Integer userId, UserType tokenType) {
         String TK = this.TK;
-        if (tokenType.getType() == TokenType.admin.getType()) {
+        String UT = this.UT;
+        if (tokenType == UserType.admin) {
+            TK = "admin" + TK;
+            UT = "admin" + UT;
+        }
+        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        String tokenKey = opsForValue.get(UT + userId);
+        redisTemplate.delete(UT + userId);
+        redisTemplate.delete(TK + tokenKey);
+    }
+
+    @Override
+    public Token getTokenByType(String tokenKey, UserType userType) {
+        String TK = this.TK;
+        if (userType == UserType.admin){
             TK = "admin" + TK;
         }
-        if (tokenType.getType() == TokenType.user.getType()) {
-            TK = "user" + TK;
+        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        String tokenStr = opsForValue.get(TK + tokenKey);
+        if (StringUtils.isNotBlank(tokenStr)){
+            return JSONObject.toJavaObject(JSONObject.parseObject(tokenStr),Token.class);
         }
-        redisTemplate.hasKey(TK + userId);
+        return null;
     }
 }

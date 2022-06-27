@@ -3,10 +3,10 @@ package com.lchao.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lchao.common.Result;
-import com.lchao.entity.AllTicket;
-import com.lchao.entity.Line;
-import com.lchao.entity.Site;
-import com.lchao.entity.Train;
+import com.lchao.pojo.AllTicket;
+import com.lchao.pojo.Line;
+import com.lchao.pojo.Site;
+import com.lchao.pojo.Train;
 import com.lchao.enums.PriceBase;
 import com.lchao.mapper.AllTicketMapper;
 import com.lchao.service.*;
@@ -97,7 +97,7 @@ public class IAllTicketServiceImpl extends ServiceImpl<AllTicketMapper, AllTicke
         }
         // 如果trainIds为空了直接返回
         if (trainIds.size() == 0) {
-            return new Result(new ArrayList<Map<String, Object>>());
+            return Result.OK(new ArrayList<Map<String, Object>>());
         }
         // 查询符合条件车次的基本信息
         List<Map<String, Object>> trainInfoList = iTrainService.getBaseTrainInfoList(trainIds);
@@ -169,7 +169,7 @@ public class IAllTicketServiceImpl extends ServiceImpl<AllTicketMapper, AllTicke
             map.put("startId", startId);
             map.put("endId", endId);
         }
-        return new Result(trainInfoList);
+        return Result.OK(trainInfoList);
     }
 
     @Override

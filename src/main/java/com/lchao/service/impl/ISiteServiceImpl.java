@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lchao.common.Result;
-import com.lchao.entity.Site;
+import com.lchao.pojo.Site;
 import com.lchao.mapper.SiteMapper;
 import com.lchao.service.ISiteService;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +23,6 @@ public class ISiteServiceImpl extends ServiceImpl<SiteMapper, Site> implements I
         if (jsonObject == null) {
             return Result.Error("jsonObject 为空");
         }
-        System.out.println(jsonObject.toJSONString());
         String siteName = jsonObject.getString("siteName");
         String initials = jsonObject.getString("initials");
         String abbreviation = jsonObject.getString("abbreviation");
@@ -77,6 +76,6 @@ public class ISiteServiceImpl extends ServiceImpl<SiteMapper, Site> implements I
     @Override
     public Result getSiteList() {
         List<Map<String, Object>> maps = listMaps(new QueryWrapper<Site>().select("id", "site_name"));
-        return new Result(maps);
+        return Result.OK(maps);
     }
 }

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lchao.common.Result;
-import com.lchao.entity.*;
+import com.lchao.pojo.*;
 import com.lchao.enums.AddOrUpdate;
 import com.lchao.enums.SeatUse;
 import com.lchao.enums.TrainState;
@@ -194,7 +194,7 @@ public class ITrainServiceImpl extends ServiceImpl<TrainMapper, Train> implement
         }
         IPage<Map<String, Object>> page = new Page<>(pageNum, pageSize);
         List<Map<String, Object>> mapList = trainMapper.getTrainList(page);
-        return new Result(mapList);
+        return Result.OK(mapList);
     }
 
     @Override
@@ -222,7 +222,7 @@ public class ITrainServiceImpl extends ServiceImpl<TrainMapper, Train> implement
         map.put("baseInfo", baseInfo);
         map.put("siteList", siteList);
         map.put("carriageList", carriageList);
-        return new Result(map);
+        return Result.OK(map);
     }
 
     @Override

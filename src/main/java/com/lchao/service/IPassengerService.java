@@ -3,7 +3,7 @@ package com.lchao.service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lchao.common.Result;
-import com.lchao.entity.Passenger;
+import com.lchao.pojo.Passenger;
 
 public interface IPassengerService extends IService<Passenger> {
     /**

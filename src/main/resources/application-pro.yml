@@ -1,15 +1,15 @@
 server:
-  port: 8088
+  port: 9090
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/train?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    url: jdbc:mysql://192.168.58.129:3306/train?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
 
   redis:
-    host: 192.168.213.128
+    host: 192.168.213.129
     port: 6379
     password: 123456
     lettuce:
@@ -36,7 +36,3 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-logging:
-  level:
-    com.lchao.mapper: DEBUG

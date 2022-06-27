@@ -1,12 +1,19 @@
 package com.lchao.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class DateUtils {
+
+    public static final long SECOND = 1000L;
+    public static final long MINUTE = 60000L;
+    public static final long HOUR = 3600000L;
+    public static final long DAY = 86400000L;
+    public static final long WEEK = 604800000L;
+
+    // 默认时区
+    private static Clock clock = Clock.systemDefaultZone();
+
     /**
      * 时间加分钟
      *
@@ -123,5 +130,22 @@ public class DateUtils {
         LocalDateTime parse = LocalDateTime.parse(startDate + " " + startTime, formatter);
         LocalDateTime time = parse.plusMinutes(consume.longValue());
         return time.format(formatter);
+    }
+
+    /**
+     * 获取指定分钟之后的时间戳
+     * @param afterMinute 分钟数
+     * @return 时间戳
+     */
+    public static Long getAfterMinuteTimeStamp(Long afterMinute) {
+        return GetAfterDayOfMillis(getTimeStamp(), clock, afterMinute);
+    }
+
+    public static Long GetAfterDayOfMillis(Long startTime, Clock clock, Long afterMinute) {
+        return Instant.ofEpochMilli(startTime + afterMinute * MINUTE).atZone(clock.getZone()).toEpochSecond() * 1000;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getAfterMinuteTimeStamp(30L));
     }
 }

@@ -2,16 +2,13 @@ package com.lchao.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lchao.common.Result;
-import com.lchao.entity.Carriage;
-import com.lchao.entity.Seat;
-import com.lchao.entity.TrainCarriage;
+import com.lchao.pojo.Carriage;
+import com.lchao.pojo.Seat;
 import com.lchao.enums.PriceBase;
-import com.lchao.enums.SeatUse;
 import com.lchao.mapper.CarriageMapper;
 import com.lchao.service.ICarriageService;
 import com.lchao.service.ISeatService;
@@ -120,7 +117,7 @@ public class ICarriageServiceImpl extends ServiceImpl<CarriageMapper, Carriage> 
         if (carriage == null) {
             return Result.Error("车厢不存在！");
         }
-        return new Result(carriage);
+        return Result.OK(carriage);
     }
 
     @Transactional
@@ -231,6 +228,6 @@ public class ICarriageServiceImpl extends ServiceImpl<CarriageMapper, Carriage> 
     @Override
     public Result getCarriageListOnTrain() {
         List<Map<String, Object>> maps = listMaps(new QueryWrapper<Carriage>().select("id", "carriage_number"));
-        return new Result(maps);
+        return Result.OK(maps);
     }
 }

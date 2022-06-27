@@ -1,14 +1,17 @@
 package com.lchao.service;
 
 
+import com.lchao.common.Result;
 import com.lchao.common.Token;
-import com.lchao.enums.TokenType;
+import com.lchao.enums.UserType;
 
 
 public interface ITokenService {
 
-    String addToken(Token token);
+    Result addToken(Token token);
 
-    void deleteTokenByUserId(Integer userId, TokenType tokenType);
+    void deleteTokenByUserId(Integer userId, UserType tokenType);
+
+    Token getTokenByType(String tokenKey, UserType userType);
 
 }

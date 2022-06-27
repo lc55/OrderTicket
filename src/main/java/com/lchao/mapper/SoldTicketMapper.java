@@ -1,7 +1,7 @@
 package com.lchao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lchao.entity.SoldTicket;
+import com.lchao.pojo.SoldTicket;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
