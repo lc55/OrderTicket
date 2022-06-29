@@ -3,13 +3,13 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.58.129:3306/train?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    url: jdbc:mysql://10.0.4.9:3306/train?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     username: root
-    password: 123456
+    password: @lc147258
     type: com.alibaba.druid.pool.DruidDataSource
 
   redis:
-    host: 192.168.213.129
+    host: 10.0.4.9
     port: 6379
     password: 123456
     lettuce:
